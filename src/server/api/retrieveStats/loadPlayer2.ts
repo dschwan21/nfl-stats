@@ -2,7 +2,7 @@ import { parse, Parser } from "csv-parse";
 import { unknown } from "zod";
 
 interface PlayerStat {
-  season: string;
+  season: number;
   week: number;
   player_display_name: string;
   position: string;
@@ -38,7 +38,7 @@ interface PlayerStat {
 }
 
 async function getPlayerStats(
-  season: string,
+  season: number,
   player: string,
   week: number
 ): Promise<PlayerStat[]> {
@@ -64,10 +64,10 @@ async function getPlayerStats(
       }
     });
   });
-  console.log('RECORDS', records)
+  // console.log('RECORDS', records)
 
   // Filter the data to include only the specified season
-  const stats = records.filter((row) => row.season === season);
+  // const stats = records.filter((row) => row.season === season);
 
   const playerStats = records.filter(
     (row) =>

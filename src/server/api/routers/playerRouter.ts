@@ -23,7 +23,7 @@ export const playerRouter = createTRPCRouter({
 
   getPlayerStats: publicProcedure
     .input(z.object({
-      season: z.string(),
+      season: z.number(),
       player: z.string(),
       week: z.number(),
     }))

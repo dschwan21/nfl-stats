@@ -7,16 +7,16 @@ import { useState } from "react";
 import { api } from "../utils/api";
 
 const Home: NextPage = () => {
-  const [season, setSeason] = useState("");
+  const [season, setSeason] = useState<number>(0);
   const [player, setPlayer] = useState("");
-  const [week, setWeek] = useState("");
+  const [week, setWeek] = useState<number>(0);
 
   const getPlayerStats = api.player.getPlayerStats.useQuery({
-    season: season,
+    season: parseInt(String(season), 10),
     player: player,
-    week: Number(week),
+    week: parseInt(String(week), 10)
   });
-  console.log('season',season,'player',player,'week',week);
+  console.log('season',season,'player',player,'week',typeof(week));
   return (
     <>
       <Head>
@@ -36,10 +36,10 @@ const Home: NextPage = () => {
               Season
             </label>
             <input
-              type="text"
+              type="number"
               id="season"
               value={season}
-              onChange={(e) => setSeason(e.target.value)}
+              onChange={(e) => setSeason(Number(e.target.value))}
               className="w-full px-4 py-2 bg-white/10 rounded-lg text-white"
             />
           </div>
@@ -63,7 +63,7 @@ const Home: NextPage = () => {
               type="number"
               id="week"
               value={week}
-              onChange={(e) => setWeek(e.target.value)}
+              onChange={(e) => setWeek(Number(e.target.value))}
               className="w-full px-4 py-2 bg-white/10 rounded-lg text-white"
             />
           </div>
