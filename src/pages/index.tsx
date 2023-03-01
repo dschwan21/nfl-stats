@@ -3,6 +3,7 @@ import Head from "next/head";
 import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useState } from "react";
+import SearchBar from "../components/searchbar/searchbar";
 
 import { api } from "../utils/api";
 
@@ -15,18 +16,25 @@ const Home: NextPage = () => {
   const [player, setPlayer] = useState("");
   const [week, setWeek] = useState<number>(0);
 
+  function handleSelectPlayer(player: Player) {
+    console.log("Selected player:", player);
+    // Do something with the selected player, such as updating state
+  }
   const getPlayerStats = api.player.getPlayerStats.useQuery({
     season: parseInt(String(season), 10),
     player: player,
     week: parseInt(String(week), 10)
   });
-  console.log('season',season,'player',player,'week',typeof(week));
+  // console.log('season',season,'player',player,'week',typeof(week));
   return (
     <>
       <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c]">
         <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
           <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
           {/* ... */}
+          <div>
+            <SearchBar onSelect={handleSelectPlayer}/>
+          </div>
           <div className="flex flex-col gap-4">
             <label htmlFor="season" className="text-white text-lg">
               Season

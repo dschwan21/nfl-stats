@@ -75,7 +75,7 @@ async function getPlayerStats(
       row.week === week &&
       row.season === season
   );
-    console.log('PLAYERSTATS', playerStats)
+    // console.log('PLAYERSTATS', playerStats)
   return playerStats;
 }
 

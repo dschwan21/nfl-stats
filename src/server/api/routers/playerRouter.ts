@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 import getPlayerStats from "../retrieveStats/loadPlayer2";
+import getPlayerInfo from "../retrieveStats/loadPlayerInfo";
 
 import { createTRPCRouter, publicProcedure, protectedProcedure } from "../trpc";
 
@@ -17,10 +18,6 @@ export const playerRouter = createTRPCRouter({
     return ctx.prisma.example.findMany();
   }),
 
-  getSecretMessage: protectedProcedure.query(() => {
-    return "you can now see this secret message!";
-  }),
-
   getPlayerStats: publicProcedure
     .input(z.object({
       season: z.number(),
@@ -31,6 +28,14 @@ export const playerRouter = createTRPCRouter({
       const stats = await getPlayerStats(input.season, input.player, input.week);
       return {
         stats,
+      };
+    }),
+
+    getPlayerInfo: publicProcedure
+    .query(async () => {
+      const info = await getPlayerInfo();
+      return {
+        info,
       };
     }),
 });
